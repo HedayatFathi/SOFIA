@@ -13,20 +13,20 @@ The method is based on projecting functional predictors into a RKHS and performi
 SOFIA (Scalar-On-Functional regression via Integrated Adaptive penalty) provides a flexible framework for analyzing models of the form:
 
 $$
-Y_i = \sum_{j=1}^p \int X_{ij}(t)\,\beta_j(t)\,dt + \varepsilon_i.
+Y_i = \sum_{j=1}^p \int X_{ij}(t) \beta_j(t) dt + \varepsilon_i.
 $$
 
 where
 
-- \( Y_i \) is a scalar response,
-- \( X_{ij}(t) \) are functional predictors observed on a common grid,
-- \( \beta_j(t) \) are unknown coefficient functions,
-- \( \varepsilon_i \) is an error term.
+- $Y_i$  is a scalar response,
+- $X_{ij}(t)$ are functional predictors observed on a common grid,
+- $\beta_j(t)$ are unknown coefficient functions,
+- $\varepsilon_i$ is an error term.
 
 
-Each coefficient function \beta_j is represented in the eigenbasis of a kernel. 
+Each coefficient function $\beta_j$ is represented in the eigenbasis of a kernel. 
 
-The method is adaptive. Cross-validation is used to choose \lambda.
+The method is adaptive. Cross-validation is used to choose $\lambda$.
 
 SOFIA is designed for researchers working in functional data analysis, statistics, machine learning, econometrics, and biostatistics.
 
@@ -41,7 +41,7 @@ The code provides several kernel options and their corresponding eigen-expansion
 
 - Sobolev kernel  
 - Exponential kernel  
-- Gaussian (RBF) kernel  
+- Gaussian kernel  
 - Matern \(3/2\) and \(5/2\) kernels  
 - Periodic kernel  
 
@@ -77,14 +77,14 @@ uses the `nloptr` package with the algorithm `"NLOPT_LN_COBYLA"` to solve a nonl
 The core estimation is based on group-penalized regression:
 
 $$
-\min_{\beta} \frac{1}{2N} \|Y - X\beta\|^2 + \lambda \sum_{j=1}^p \omega_j \|\beta_j\|_K,
+\min_{\beta \in K} \frac{1}{2N} ||Y - X\beta ||^2 + \lambda \sum_{j=1}^p \omega_j ||\beta_j ||_K,
 $$
 
 where:
 
-- \( \|\beta_j\|_K \) is the norm of the coefficient function in the kernel-induced space,
-- \( \omega_j \) are weights (equal to 1 in the non-adaptive step, updated in the adaptive step),
-- \( \lambda \) is the regularization parameter.
+- $\|\beta_j\|_K$ is the norm of the coefficient function in the kernel-induced space,
+- $\omega_j$ are weights (equal to 1 in the non-adaptive step, updated in the adaptive step),
+- $\lambda$ is the tuning parameter.
 
 The function
 
@@ -116,13 +116,12 @@ implements the full two-step procedure:
    - A training/test split is used to select the best `lambda`.  
 
 2. **Adaptive step**  
+
    - Weights are updated as
-     $$
-     \omega_j^{\text{new}} = \frac{1}{\|\hat{\beta}_j^{(1)}\|_K},
-     $$
-     where \( \hat{\beta}_j^{(1)} \) is the estimate from the non-adaptive step.  
+     $$\omega_j^{\text{new}} = \frac{1}{\|\hat{\beta}_j^{(1)}\|_K},$$
+     where $\hat{\beta}_j^{(1)}$ is the estimate from the non-adaptive step.  
    - Only predictors selected in the first step are kept.  
-   - k-fold cross-validation (`n_fold`) is used to choose `lambda` in the adaptive step.
+   - Cross-validation is used to choose `lambda` in the adaptive step.
 
 The output includes:
 
