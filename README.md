@@ -77,12 +77,12 @@ uses the `nloptr` package with the algorithm `"NLOPT_LN_COBYLA"` to solve a nonl
 The core estimation is based on group-penalized regression:
 
 $$
-\min_{\beta \in K} \frac{1}{2N} ||Y - X\beta ||^2 + \lambda \sum_{j=1}^p \omega_j ||\beta_j ||_K,
+\min_{\beta \in K} \frac{1}{2N} \lVert Y - X\beta \rVert^2 + \lambda \sum_{j=1}^p \omega_j \lVert \beta_j \rVert_K,
 $$
 
 where:
 
-- $\|\beta_j\|_K$ is the norm of the coefficient function in the kernel-induced space,
+- $\lVert\beta_j \rVert_K$ is the norm of the coefficient function in the kernel-induced space,
 - $\omega_j$ are weights (equal to 1 in the non-adaptive step, updated in the adaptive step),
 - $\lambda$ is the tuning parameter.
 
