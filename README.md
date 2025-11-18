@@ -1,5 +1,7 @@
 
 
+
+
 # SOFIA: Scalar-On-Functional Regression via Integrated Adaptive Group Penalty
 
 This repository contains R code implementing  SOFIA: Scalar-On-Functional Regression via Integrated Adaptive Group Penalty, 
@@ -10,7 +12,7 @@ The method is based on projecting functional predictors into a RKHS and performi
 
 # 1. Introduction
 
-SOFIA (Scalar-On-Functional regression via Integrated Adaptive penalty) provides a flexible framework for analyzing models of the form:
+SOFIA (Scalar-On-Functional regression via Integrated Adaptive penalty) provides a framework for analyzing models of the form:
 
 $$
 Y_i = \sum_{j=1}^p \int X_{ij}(t) \beta_j(t) dt + \varepsilon_i.
@@ -33,7 +35,7 @@ SOFIA is designed for researchers working in functional data analysis, statistic
 
 ---
 
-## 2. Features
+## 2. Functions
 
 ### Kernel and Eigenbasis Construction
 
@@ -42,7 +44,7 @@ The code provides several kernel options and their corresponding eigen-expansion
 - Sobolev kernel  
 - Exponential kernel  
 - Gaussian kernel  
-- Matern \(3/2\) and \(5/2\) kernels  
+- Matern $3/2$ and $5/2$ kernels  
 - Periodic kernel  
 
 For each kernel, the code:
@@ -59,28 +61,21 @@ The code includes functions to:
 - project into the kernel space `K` using eigenvalues (via `projection_K()`),
 - reconstruct functions on the original domain from basis coefficients (via `projection_domain()` and `projection_domain_K()`).
 
-### Norms and Optimization
+### Optimization
 
 Several norms are implemented:
 
-- `norm_matrix_H_vec()` and `norm_matrix_H()` compute norms in \(H = L^2\),
-- `norm_matrix_K()` and `norm_K_Kx()` compute norms in the kernel space \(K\).
-
-The function
-
-- `estimation_norm_COBYLA()`
-
-uses the `nloptr` package with the algorithm `"NLOPT_LN_COBYLA"` to solve a nonlinear optimization problem used to estimate norms appearing in the penalty.
+The function `estimation_norm_COBYLA()` uses the `nloptr` package with the algorithm `"NLOPT_LN_COBYLA"` to solve a nonlinear optimization problem used to estimate norms appearing in the penalty.
 
 ### Penalized Regression and Variable Selection
 
-The core estimation is based on group-penalized regression:
+The core estimation is based on penalized regression:
 
 $$ \min_{\beta \in K} \frac{1}{2N} \lVert Y - X\beta \rVert^2 + \lambda \sum_{j=1}^p \omega_j \lVert \beta_j \rVert_K $$
 
 where:
 
-- $\lVert\beta_j \rVert_K$ is the norm of the coefficient function in the kernel-induced space,
+- $\lVert\beta_j \rVert_K$ is the norm of the coefficient function in the space induced by $K$,
 - $\omega_j$ are weights (equal to 1 in the non-adaptive step, updated in the adaptive step),
 - $\lambda$ is the tuning parameter.
 
@@ -109,14 +104,14 @@ The function
 implements the full two-step procedure:
 
 1. **Non-adaptive step**  
-   - All weights \( \omega_j = 1 \).  
+   - All weights  $\omega_j = 1$.  
    - A grid of `lambda` values is defined (using `definition_lambda()` if not supplied).  
    - A training/test split is used to select the best `lambda`.  
 
 2. **Adaptive step**  
 
    - Weights are updated as
-     $$\omega_j^{\text{new}} = \frac{1}{\|\hat{\beta}_j^{(1)}\|_K},$$
+     $$\omega_j^{\text{new}} = 1/ ||\hat{\beta}_j^{(1)}||_K,$$
      where $\hat{\beta}_j^{(1)}$ is the estimate from the non-adaptive step.  
    - Only predictors selected in the first step are kept.  
    - Cross-validation is used to choose `lambda` in the adaptive step.
@@ -131,6 +126,11 @@ The output includes:
 
 ---
 
+## Examples
+
+A simulation example `Simulation_SOFIA_n500_p10_active5_Gauss_8.r` is provided. This script reproduces one of the main simulations in the paper (n=500, p=10, 5 active predictors)
+
+We use Gaussian kernel with parameter 8.
 
 
 
