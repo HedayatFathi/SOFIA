@@ -111,8 +111,8 @@ implements the full two-step procedure:
 2. **Adaptive step**  
 
    - Weights are updated as
-     $$\omega_j = 1/ \lVert \hat{\beta}_j^{(1)}\lVert_K,$$
-     where $\hat{\beta}_j^{(1)}$ is the estimate from the non-adaptive step.  
+     $$\omega_j = 1/ \lVert \hat{\beta}_j\lVert_K,$$
+     where $\hat{\beta}_j$ is the estimate from the non-adaptive step.  
    - Only predictors selected in the first step are kept.  
    - Cross-validation is used to choose `lambda` in the adaptive step.
 
