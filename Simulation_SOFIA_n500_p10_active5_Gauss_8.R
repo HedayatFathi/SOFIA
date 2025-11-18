@@ -333,7 +333,7 @@ for (length_out in length_out_values) {
 
 print(results)
 
-write.csv(results, "SOFIA_n500_p10_active5_gauss_new.csv", row.names = FALSE)
+write.csv(results, "SOFIA_n500_p10_active5_gauss_8.csv", row.names = FALSE)
 
 saveRDS(all_beta_values, "SOFIA_n500_p10_active5_gauss_8.rds")
 
