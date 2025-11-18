@@ -76,9 +76,7 @@ uses the `nloptr` package with the algorithm `"NLOPT_LN_COBYLA"` to solve a nonl
 
 The core estimation is based on group-penalized regression:
 
-$$
-\min_{\beta \in K} \frac{1}{2N} \lVert Y - X\beta \rVert^2 + \lambda \sum_{j=1}^p \omega_j \lVert \beta_j \rVert_K,
-$$
+$$ \min_{\beta \in K} \frac{1}{2N} \lVert Y - X\beta \rVert^2 + \lambda \sum_{j=1}^p \omega_j \lVert \beta_j \rVert_K $$
 
 where:
 
@@ -132,5 +130,14 @@ The output includes:
 - prediction mean squared errors (MSE) for both stages.
 
 ---
+
+
+
+
+
+
+
+
+
 
 
