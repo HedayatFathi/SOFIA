@@ -5,7 +5,9 @@
 # SOFIA: Scalar-On-Functional Regression via Integrated Adaptive Group Penalty
 
 This repository contains R code implementing  SOFIA: Scalar-On-Functional Regression via Integrated Adaptive Group Penalty, 
-proposed in the paper "Selection of functional predictors and smooth coefficient estimation for scalar-on-function regression models", by Hedayat fathi, Marzia A. Cremona, and Federico Severino.
+proposed in the paper "Selection of functional predictors and smooth coefficient estimation for scalar-on-function regression models", by Hedayat fathi, Marzia A. Cremona, and Federico Severino 
+(https://arxiv.org/abs/2506.17773).
+
 
 The method is based on projecting functional predictors into a RKHS and performing adaptive group-penalized coordinate descent for sparse estimation.
 
